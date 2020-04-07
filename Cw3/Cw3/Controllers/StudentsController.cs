@@ -71,10 +71,10 @@ namespace Cw3.Controllers
                         if (reader.Read())
                         {
                             var enrollment = new Enrollment();
-                            enrollment.idEnrollment = reader["IdEnrollment"].ToString();
-                            enrollment.idStudy = reader["IdStudy"].ToString();
-                            enrollment.semester = reader["Semester"].ToString();
-                            enrollment.startDate = reader["StartDate"].ToString();
+                            enrollment.idEnrollment = (int)reader["IdEnrollment"];
+                            enrollment.idStudy = (int)reader["IdStudy"];
+                            enrollment.semester = (int)reader["Semester"];
+                            enrollment.startDate = (DateTime)reader["StartDate"];
                             return Ok(enrollment);
                         }
                 con.Dispose();

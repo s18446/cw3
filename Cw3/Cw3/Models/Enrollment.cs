@@ -7,12 +7,12 @@ namespace Cw3.Models
 {
     public class Enrollment
     {
-        public string idEnrollment { get; set; }
+        public int idEnrollment { get; set; }
 
-        public string semester { get; set; }
+        public int semester { get; set; }
 
-        public string idStudy { get; set; }
+        public int idStudy { get; set; }
 
-        public string startDate { get; set; }
+        public DateTime startDate { get; set; }
     }
 }

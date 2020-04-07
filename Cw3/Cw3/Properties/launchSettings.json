@@ -20,7 +20,7 @@
     "Cw3": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/enrollments",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
