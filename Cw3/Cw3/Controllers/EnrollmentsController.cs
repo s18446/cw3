@@ -15,7 +15,7 @@ namespace Cw3.Controllers
         [HttpPost]
         public IActionResult EnrollStudent(EnrollStudentRequest request)
         {
-            int idEnrollment;
+            int idEnrollment = 0;
             EnrollStudentResponse response;
 
             using (var con = new SqlConnection(ConString))
@@ -55,16 +55,21 @@ namespace Cw3.Controllers
                           com.CommandText = "INSERT INTO Enrollment(idEnrollment, Semester, idStudy, StartDate) OUTPUT INSERTED.IDenrollment VALUES( " +
                                        "(select(select max(idEnrollment) from Enrollment) + 1), 1 , @idStudies,  (SELECT CONVERT(date, getdate())))";
                              com.Parameters.AddWithValue("idStudies", idStudies);
-                             idEnrollment = com.ExecuteNonQuery();
-                        _insertIntoEnrollments(com, idStudies);
+                          dr = com.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            idEnrollment = (int)dr["IdEnrollment"];
+                        }
+                            //   _insertIntoEnrollments(com, idStudies);
+                            dr.Close();
                         Console.WriteLine("Tutaj jestem3");
-                        com.CommandText = "select idEnrollment from Enrollment where (StartDate = (select max(StartDate) from Enrollment)) and semester=1 and idStudy = @idStudy2";
-                        com.Parameters.AddWithValue("idStudy2", idStudies);
-                        dr = com.ExecuteReader();
-                        Console.WriteLine("Tutaj jestem4");
-                         idEnrollment = (int)dr["IdEnrollment"];
-                        Console.WriteLine("Tutaj jestem5");
-                        dr.Close();
+                        //com.CommandText = "select idEnrollment from Enrollment where (StartDate = (select max(StartDate) from Enrollment)) and semester=1 and idStudy = @idStudy2";
+                        //com.Parameters.AddWithValue("idStudy2", idStudies);
+                        //dr = com.ExecuteReader();
+                        //Console.WriteLine("Tutaj jestem4");
+                        // idEnrollment = (int)dr["IdEnrollment"];
+                        //Console.WriteLine("Tutaj jestem5");
+                        //dr.Close();
                     } else
                     {
                         idEnrollment = (int)dr["IdEnrollment"];
@@ -84,7 +89,7 @@ namespace Cw3.Controllers
                         return BadRequest("Indeks nie jest unikalny.");
                     }
                     dr.Close();
-                    tran.Commit();
+                 
                     //dodawanie studenta do bazy
                     Console.WriteLine("TUTAJ JESTEM 6");
                     com.CommandText = "INSERT INTO Student(IndexNumber, FirstName, LastName, BirthDate, IdEnrollment) VALUES (@indexNumber, @firstName, @lastName, @birthDate, @idEnrollment) ";
@@ -112,7 +117,7 @@ namespace Cw3.Controllers
                         Semester = 1,
                         StartDate = DateTime.Now
                     };
-                  //  tran.Commit();
+                    tran.Commit();
                 }
                 catch (SqlException ex)
                 {
@@ -136,107 +141,6 @@ namespace Cw3.Controllers
             reader.Close();
         }
 
-        /*
-        private readonly IDbService _dbService;
-        private const string ConString = "Data Source=db-mssql;Initial Catalog=s18446;Integrated Security=True";
-
-        public EnrollmentsController(IDbService dbService)
-        {
-            _dbService = dbService;
-        }
-
-        [HttpPost]
-        public IActionResult EnrollStudent(EnrollStudentRequest request)
-        {
-
-           // var st = new Student();
-            var enrollment = new Enrollment();
-          //  st.FirstName = request.FirstName;
-            
-            using (var con = new SqlConnection(ConString))
-            using (var com = new SqlCommand())
-            {
-                com.Connection = con;
-                con.Open();
-                var tran = con.BeginTransaction();
-                try
-                {
-                    // Czy studia istnieja?
-                    com.CommandText = "select IdStudies from studies where name=@name";
-                    com.Parameters.AddWithValue("name", request.studiesName);
-
-                    var dr = com.ExecuteReader();
-                    if (!dr.Read())
-                    {
-                        dr.Close();
-                        tran.Rollback();
-                        return BadRequest("Studia niedostepne");
-                        
-                    }
-                    int idStudies = (int)dr["IdStudies"];
-                    dr.Close();
-                    //znajdz studia i semestr w enrollments
-                    Console.WriteLine("Checking if enrollment for studies exists.");
-                    com.CommandText = "select idEnrollment from Enrollment where StartDate = (select max(StartDate) from Enrollment) and semester=1 and idStudy = @idStudy";   
-                    com.Parameters.AddWithValue("idStudy", idStudies);
-                    dr = com.ExecuteReader();
-                    //   int idEnrollment;
-                    int enrollmentID;
-                    if (!dr.Read())
-                    {
-                        dr.Close();
-                        //dodac nowy enrollment
-                        com.CommandText = "INSERT INTO Enrollment(idEnrollment, Semester, idStudy, StartDate) VALUES( " +
-                                    "((select max(idEnrollment) from Enrollment) + 1), 1 , @idStudies, SELECT CONVERT(date, getdate()))";
-                        com.Parameters.AddWithValue("idStudies", idStudies);
-                        com.ExecuteNonQuery();
-
-                        com.CommandText = "select idEnrollment from Enrollment where idEnrollment = (select max(idEnrollment) from enrollment)";
-                        dr = com.ExecuteReader();
-                        enrollmentID = (int)dr["IdEnrollment"];
-                        dr.Close();
-                    }
-                    else
-                    {
-                        enrollmentID = (int)dr["IdEnrollment"];
-                        dr.Close();
-                    }
-
-                    Console.WriteLine("Checking doubled indexes.");
-                    com.CommandText = "select index from Student where index=@index";
-                    com.Parameters.AddWithValue("index", request.IndexNumber);
-
-                    dr = com.ExecuteReader();
-                    if(dr.Read())
-                    {
-                        dr.Close();
-                        tran.Rollback();
-                        return BadRequest("Indeks nie jest unikalny.");
-                    }
-                    dr.Close();
-
-                    DateTime birthDate = DateTime.Parse(request.birthDate.Replace('.', '/'));
-                    // Dodanie studenta
-                    com.CommandText = "INSERT INTO Student(IndexNumber, FirstName, LastName, BirthDate, idEnrollment)" +
-                        " VALUES(@Index, @FirstName, @LastName, @BirthDate, @idEnrollment)";
-                    com.Parameters.AddWithValue("Index", request.IndexNumber);
-                    com.Parameters.AddWithValue("FirstName", request.FirstName);
-                    com.Parameters.AddWithValue("LastName", request.LastName);
-                    com.Parameters.AddWithValue("BirthDate", birthDate);
-                    com.Parameters.AddWithValue("idEnrollment", enrollment.idEnrollment);
-                    com.ExecuteNonQuery();
-
-                    tran.Commit();
-                }catch(SqlException ex)
-                { 
-                    tran.Rollback();
-                    return BadRequest("Cos poszlo nie tak");
-                }
-            }
-            
-          //     var response = new EnrollStudentResponse();
-          //  response.LastName = st.LastName;
-            return Ok();
-        } */
+       
     }
 }
