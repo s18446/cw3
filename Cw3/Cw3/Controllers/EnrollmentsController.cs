@@ -112,8 +112,59 @@ namespace Cw3.Controllers
                 return Created("Dodano studenta", response);
             }
         }
+
+        [HttpPost("promotions")]
+        public IActionResult PromoteStudent(PromoteStudentRequest promoteStudentRequest)
+        {
+          
+            using (var con = new SqlConnection(ConString))
+            using (var com = new SqlCommand())
+            {
+                com.Connection = con;
+                con.Open();
+                PromoteStudentResponse response = new PromoteStudentResponse();
+                var transaction = con.BeginTransaction();
+                com.Transaction = transaction;
+
+
+                try
+                {
+
+                    com.CommandText = "EXEC PromoteStudents @studies, @semester";
+                    com.Parameters.AddWithValue("studies", promoteStudentRequest.Studies);
+                    com.Parameters.AddWithValue("semester", promoteStudentRequest.Semester);
+                    com.ExecuteNonQuery();
+
+                    com.CommandText = "Select * from enrollment where idStudy = (Select idStudy from Studies where name = @studiesName) and semester = @semester2";
+                    com.Parameters.AddWithValue("studiesName", promoteStudentRequest.Studies);
+                    com.Parameters.AddWithValue("semester2", promoteStudentRequest.Semester + 1);
+                    var dr = com.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        response.IdEnrollment = (int)dr["IdEnrollment"];
+                        response.IdStudy = (int)dr["IdStudy"];
+                        response.Semester = (int)dr["Semester"];
+                        response.StartDate = (DateTime)dr["StartDate"];
+                    }
+                    dr.Close();
+                    transaction.Commit();
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.Message);
+                }
+
+
+                return Created("Nadano promocje", response);
+
+
+            }
+
         }
+    }
 
        
-    }
+    
 }
