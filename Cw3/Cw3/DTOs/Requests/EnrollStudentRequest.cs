@@ -18,6 +18,6 @@ namespace Cw3.DTOs.Requests
         [Required]
         public DateTime birthDate { get; set; }
         [Required]
-        public string studiesName { get; set; }
+        public string Studies { get; set; }
     }
 }
