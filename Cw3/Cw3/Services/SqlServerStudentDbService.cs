@@ -1,5 +1,6 @@
 ﻿using Cw3.DTOs.Requests;
 using Cw3.DTOs.Responses;
+using Cw3.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,6 +12,38 @@ namespace Cw3.Services
     public class SqlServerStudentDbService : IStudentDbService
     {
         private const string ConString = "Data Source=db-mssql;Initial Catalog=s18446;Integrated Security=True";
+
+        public Student GetStudent(string index)
+        {
+            using (var con = new SqlConnection(ConString))
+            using (var com = new SqlCommand())
+            {
+                com.Connection = con;
+                con.Open();
+      
+                com.CommandText = "Select * from Student where indexNumber = @indexNumber";
+                com.Parameters.AddWithValue("indexNumber", index);
+                var dr = com.ExecuteReader();
+                if (dr.Read())
+                    {
+                    Student st = new Student()
+                    {
+                        IndexNumber = dr["IndexNumber"].ToString(),
+                        IdEnrollment = (int)dr["IdEnrollment"],
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        birthDate = (DateTime)dr["BirthDate"]
+                    };
+                    return st;
+                        
+                    }
+                dr.Close();
+            
+                return null;
+            }
+        }
+
+
         public EnrollStudentResponse EnrollStudent(EnrollStudentRequest request)
         {
             int idEnrollment = 0;

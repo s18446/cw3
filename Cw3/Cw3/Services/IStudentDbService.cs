@@ -1,5 +1,6 @@
 ﻿using Cw3.DTOs.Requests;
 using Cw3.DTOs.Responses;
+using Cw3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace Cw3.Services
         public EnrollStudentResponse EnrollStudent(EnrollStudentRequest request);
         public PromoteStudentResponse PromoteStudents(PromoteStudentRequest request);
 
+        Student GetStudent(string index);
     }
 }
