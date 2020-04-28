@@ -10,3 +10,257 @@ GET
 POST
 ?lastName=Kowalski
 {"IndexNumber": "777774","FirstName": "Jan","LastName": "Malewski","BirthDate": "1993-03-23","Studies": "Computer Science"}
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/
+GET
+
+{"IndexNumber": "777774","FirstName": "Jan","LastName": "Malewski","BirthDate": "1993-03-23","Studies": "Computer Science"}
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+GET
+
+{"Name": "Rocky","Type": "pies","AdmissionDate": "2020-04-13","IdOwner": 1, "Treatments": ["xray", "szczepienie"] }
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/students
+POST
+
+{
+	"login":"abc",
+	"password": 1234
+}
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students/18446
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+GET
+
+
+/api/students
+POST
+
+{
+	"login":"abc",
+	"password": 1234
+}
+/api/students
+GET
+
+
