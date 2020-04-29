@@ -1,10 +1,15 @@
 ﻿using Cw3.DTOs.Requests;
 using Cw3.DTOs.Responses;
 using Cw3.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Cw3.Services
@@ -185,6 +190,60 @@ namespace Cw3.Services
                 }
                 return response;
             }
+        }
+
+        public LoginResponse Login(IConfiguration configuration, LoginRequestStudent request)
+        {
+            using (var con = new SqlConnection(ConString))
+            using (var com = new SqlCommand())
+            {
+                com.Connection = con;
+                con.Open();
+
+                try
+                {
+                    com.CommandText = "Select * from student where indexNumber = @indexNumber and password = @password";
+                    com.Parameters.AddWithValue("indexNumber", request.IndexNumber);
+                    com.Parameters.AddWithValue("password", request.Password);
+                    var dr = com.ExecuteReader();
+                    if (!dr.Read())
+                    {
+                        throw new ArgumentException("Brak takich danych w bazie.");
+                    }
+                }
+                catch(SqlException ex)
+                {
+                   throw new ArgumentException(ex.Message);
+                }
+
+            }
+
+                var claims = new[]
+    {
+                new Claim(ClaimTypes.NameIdentifier, request.IndexNumber),
+                new Claim(ClaimTypes.Name, request.Password),              
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["SecretKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: "Student",
+                audience: "Gakko",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(10),
+                signingCredentials: creds
+                );
+
+
+
+            return new LoginResponse
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    refreshToken = Guid.NewGuid()
+                };
+           
+              
         }
     }
 }

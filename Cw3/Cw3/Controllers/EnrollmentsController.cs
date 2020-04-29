@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Security.Claims;
 using Cw3.DTOs.Requests;
 using Cw3.DTOs.Responses;
 using Cw3.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Cw3.Controllers
 {
@@ -12,13 +15,17 @@ namespace Cw3.Controllers
     public class EnrollmentsController : ControllerBase
     {
         private readonly IStudentDbService _dbService;
+        public IConfiguration Configuration { get; set; }
 
-        public EnrollmentsController(IStudentDbService dbService)
+
+        public EnrollmentsController(IStudentDbService dbService, IConfiguration configuration)
         {
             _dbService = dbService;
+            Configuration = configuration;
         }
 
         [HttpPost]
+        [Authorize(Roles = "employee")]
         public IActionResult EnrollStudent(EnrollStudentRequest request)
         {
             EnrollStudentResponse response;
@@ -34,9 +41,10 @@ namespace Cw3.Controllers
             }
             return Created("Dodano studenta", response);
         }
-
+        
 
         [HttpPost("promotions")]
+        [Authorize(Roles = "employee")]
         public IActionResult PromoteStudent(PromoteStudentRequest promoteStudentRequest)
         {
             PromoteStudentResponse response;
@@ -53,6 +61,25 @@ namespace Cw3.Controllers
                 return BadRequest(ex.Message);
             }
             return Created("Nadano promocje", response);
+        }
+
+
+
+        [HttpPost("login")]
+
+        public IActionResult Login(LoginRequestStudent request)
+        {
+            LoginResponse response;
+            try
+            {
+                response = _dbService.Login(Configuration, request);
+                Console.WriteLine("co sie dzieje");
+            }catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(response);      
         }
     }
  }

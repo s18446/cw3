@@ -264,3 +264,181 @@ POST
 GET
 
 
+/api/students
+GET
+
+
+/favicon.ico
+GET
+
+
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/students
+GET
+
+
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/students
+GET
+
+
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/students
+GET
+
+
+/api/enrollments
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/students
+GET
+
+
+/api/enrollments/login
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments/login
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
+/api/enrollments/login
+POST
+
+{
+	"IndexNumber": "18446",
+	"Password": "1234"
+}
